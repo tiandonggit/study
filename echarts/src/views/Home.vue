@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-
     <h1>嵌套环形饼图、空心饼图组合</h1>
     <div class="box clearfix">
       <customizedPieChart :title="title1" :data="data1"></customizedPieChart>
@@ -31,6 +30,37 @@
         :data1="data4"
         :data2="data5"
         :barColorList="barColorList5"
+      ></BarChart>
+    </div>
+     <h1>柱状图 （双柱 叠柱）</h1>
+    <div class="box clearfix">
+      <BarChart
+        :title="title1"
+        :subTitle="subTitle5"
+        :type="2"
+        :legendType="2"
+        :data1="data4"
+        :data2="data5"
+        :barColorList="barColorList5"
+      ></BarChart>
+      <BarChart
+        :title="title1"
+        :subTitle="subTitle5"
+        :type="3"
+        :legendType="1"
+        :data1="data4"
+        :data2="data5"
+        :data3="data11"
+        :barColorList="barColorList11"
+      ></BarChart>
+      <BarChart
+        :title="title1"
+        :subTitle="subTitle5"
+        :type="3"
+        :legendType="1"
+        :data1="data4"
+        :data2="data5"
+        :barColorList="barColorList12"
       ></BarChart>
     </div>
 
@@ -134,7 +164,7 @@ export default {
       },
       barColorList4: ["#41c2ff", "#001831", "", ""],
       data4: {
-        name: "1",
+        name: "视频广告",
         value: [
           { value: 10, name: "内科1" },
           { value: 5, name: "外科" },
@@ -146,9 +176,9 @@ export default {
       },
       subTitle4: "单位：%",
       subTitle5: "单位：万元",
-      barColorList5: ["#41c2ff", "#3f50ff", "#00e9a3", "#11d563"],
+      barColorList5: ["#41c2ff", "#3f50ff", "#00e9a3", "#11d563"], // 双柱颜色顺序 左上 -> 左下 -> 右上 -> 右下
       data5: {
-        name: "2",
+        name: "联盟广告",
         value: [
           { value: 10, name: "内科1" },
           { value: 5, name: "外科" },
@@ -158,6 +188,19 @@ export default {
           { value: 35, name: "其他" }
         ]
       },
+      data11: {
+        name: "邮件营销",
+        value: [
+          { value: 10, name: "内科1" },
+          { value: 5, name: "外科" },
+          { value: 15, name: "妇产科" },
+          { value: 25, name: "五官科" },
+          { value: 20, name: "内科2" },
+          { value: 35, name: "其他" }
+        ]
+      },
+      barColorList11: ["#005ee5", "#31ffb4", "#6340ff", ""], // 叠柱颜色顺  下 -> 上
+      barColorList12: ["#ff864a", "#0ce5ff", "", ""], // 叠柱颜色顺  下 -> 上
       title6: "每日医生活跃增长率",
       subTitle6: "单位：%",
       lineColorBeg6: "#ff8b1f",
@@ -183,6 +226,11 @@ export default {
 </script>
 <style lang="less">
 .home {
+  h1 {
+    background-image: -webkit-linear-gradient(top, #ff8b1f, #ff2c2c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   .box {
     margin: 15px;
     display: flex;

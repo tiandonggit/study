@@ -183,6 +183,7 @@ export default {
   div {
     height: 250px;
     width: 400px;
+    margin: 15px;
   }
 }
 </style>

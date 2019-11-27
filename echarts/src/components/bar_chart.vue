@@ -1,6 +1,6 @@
 /* * @Author: 田东 * @Date: 2019-08-29 10:33:33 * @Last Modified by: 田东 *
 @Last Modified time: 2019-11-22 13:19:06 * @name bar_chart * 柱状图组件
-单柱双柱根据传递数据控制*/
+柱类型根据传递数据控制 type: 1：1柱；2：2柱；3：叠柱；*/
 <template>
   <div class="bar_chart">
     <div ref="chart"></div>
@@ -23,12 +23,12 @@ export default {
       type: String
     },
     type: {
-      // 几柱图 1：1柱；2：2柱
+      // 几柱图 1：1柱；2：2柱；3：叠柱；
       default: 1,
       type: Number
     },
     legendType: {
-       // 图例类型 1：竖排列；2：横排列
+      // 图例类型 1：竖排列；2：横排列
       default: 1,
       type: Number
     },
@@ -49,6 +49,13 @@ export default {
         return {};
       }, //一级分类
       type: Object
+    },
+    data3: {
+      // 数据
+      default: function() {
+        return {};
+      }, //一级分类
+      type: Object
     }
   },
   data() {
@@ -58,21 +65,29 @@ export default {
       dataX: [],
       dataY1: [],
       dataY2: [],
+      dataY3: [],
       legendData: [] // 图例
     };
   },
   mounted() {
     this.$nextTick(() => {
+      this.legendData.push(this.data1.name);
       this.data1.value.forEach((v1, e1) => {
         this.dataX.push(v1.name);
         this.dataY1.push(v1.value);
       });
-      this.type === 2 &&
+      if (this.data2.name) {
+        this.legendData.push(this.data2.name);
         this.data2.value.forEach((v1, e1) => {
           this.dataY2.push(v1.value);
         });
-      this.legendData.push(this.data1.name);
-      this.type === 2 && this.legendData.push(this.data2.name);
+      }
+      if (this.data3.name) {
+        this.legendData.push(this.data3.name);
+        this.data3.value.forEach((v1, e1) => {
+          this.dataY3.push(v1.value);
+        });
+      }
       this.drow();
     });
   },
@@ -96,21 +111,44 @@ export default {
       window.addEventListener("resize", this.handleResizeEvent);
     },
     generatorChartOption() {
+      let right = "4%"; // 图形在画布右侧偏移量（默认）
+      this.type === 3 && (right = "30%"); // 叠状右侧偏移配置
+
+      // 图例配置
       let legend =
-        this.type === 1
+        this.type === 1 // 单柱不显示图例
           ? {
               show: false
             }
-          : {
+          : this.type === 2 // 双柱图例显示右上
+          ? {
               data: this.legendData,
               x: "right",
-              y:"20",
+              y: "20",
+              itemWidth: 14,
               orient: this.legendType === 1 ? "vertical" : "horizontal",
               align: "left",
               textStyle: {
                 color: "#fff"
-              },
+              }
+            }
+          : {
+              // 叠柱图例显示右下
+              data: this.legendData,
+              right: 20,
+              bottom: 30,
+              itemGap: 30,
+              icon: "circle",
+              itemWidth: 14,
+              itemHeight: 14,
+              orient: "vertical",
+              align: "left",
+              textStyle: {
+                color: "#fff",
+                
+              }
             };
+      // 数据配置 —— 默认单柱
       let series = [
         {
           name: this.data1.name,
@@ -130,6 +168,7 @@ export default {
           data: this.dataY1
         }
       ];
+      // 双柱
       this.type === 2 &&
         series.push({
           name: this.data2.name,
@@ -146,6 +185,28 @@ export default {
           },
           data: this.dataY2
         });
+
+      if (this.type === 3) {
+        // 叠柱
+        series = [];
+        let dataYList = [this.dataY1, this.dataY2];
+        this.dataY3.length > 1 && dataYList.push(this.dataY3);
+        let num = this.data3.name ? 3 : 2;
+        for (let i = 0; i < num; i++) {
+          series.push({
+            name: this.legendData[i],
+            type: "bar",
+            stack: "1",
+            itemStyle: {
+              normal: {
+                color: this.barColorList[i]
+              },
+              emphasis: {}
+            },
+            data: dataYList[i]
+          });
+        }
+      }
       let option = {
         title: [
           {
@@ -160,7 +221,7 @@ export default {
           {
             subtext: this.subTitle,
             x: "left",
-            y: "3%",
+            y: "5%",
             subtextStyle: {
               color: this.barAxisColor
             }
@@ -176,8 +237,9 @@ export default {
         },
         grid: {
           left: "3%",
-          right: "4%",
+          right: right,
           bottom: "3%",
+          // top: "25%",
           containLabel: true
         },
         xAxis: [
