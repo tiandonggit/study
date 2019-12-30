@@ -67,7 +67,7 @@ export default {
         title: {
           text: this.title,
           x: "center",
-          y: "3%",
+          y: "5%",
           textStyle: {
             color: "#fff"
           }
@@ -84,8 +84,8 @@ export default {
               padding: [3, 5]
             }
           },
-          radius: 75,
-          center: ['50%', '65%'],
+          radius: 110,
+          center: ['50%', '60%'],
           indicator: this.dataMax,
           splitArea: {
             areaStyle: {
@@ -149,14 +149,13 @@ export default {
 
 <style scoped lang="less">
 .radar_chart {
+  width: 100%;
   height: 100%;
-  background-color: #001831;
-  float: left;
+  background-color: #061B4D;
 
   div {
-    height: 250px;
-    width: 400px;
-    margin: 15px;
+    height: 100%;
+    width: 100%;
   }
 }
 </style>

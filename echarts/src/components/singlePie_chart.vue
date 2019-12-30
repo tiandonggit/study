@@ -66,9 +66,9 @@ export default {
         roseType = "",
         left = "50%";
       if (this.type === 2) {
-        radius = [20, 80];
+        radius = [20, 100];
         roseType = "radius";
-        left = "43%";
+        left = "40%";
       }
       let option = {
         title: [
@@ -76,7 +76,7 @@ export default {
             // 标题配置
             text: this.title,
             x: "center",
-            y: "0%",
+            y: "5%",
             textStyle: {
               color: "#fff"
             }
@@ -94,8 +94,8 @@ export default {
         },
         legend: {
           show: this.type === 2,
-          right: 20,
-          top: 30,
+          right: 35,
+          top: "30%",
           type: "scroll",
           orient: "vertical",
           pageIconColor: '#fff', // 翻页按钮的颜色。
@@ -123,7 +123,7 @@ export default {
               "#144AFF"
             ],
             radius: radius,
-            center: [left, "55%"],
+            center: [left, "60%"],
             roseType: roseType, //"radius",
             data: this.data,
             label: {
@@ -164,14 +164,14 @@ export default {
 
 <style scoped lang="less">
 .singlePie_chart {
+  width: 100%;
   height: 100%;
-  background-color: #001831;
-  float: left;
+  background-color: #061B4D;
+  // float: left;
 
   div {
-    height: 250px;
-    width: 400px;
-    margin: 15px;
+    height: 100%;
+    width: 100%;
   }
 }
 </style>

@@ -32,7 +32,7 @@
         :barColorList="barColorList5"
       ></BarChart>
     </div>
-     <h1>柱状图 （双柱 叠柱）</h1>
+    <h1>柱状图 （双柱 叠柱）</h1>
     <div class="box clearfix">
       <BarChart
         :title="title1"
@@ -69,16 +69,18 @@
       <singleLineChart
         :title="title6"
         :subTitle="subTitle6"
-        :data="data2"
-        :lineColorBeg="lineColorBeg6"
-        :lineColorEnd="lineColorEnd6"
+        :type="1"
+        :data1="data4"
+        :data2="data5"
+        :lineColorList="barColorList5"
       ></singleLineChart>
       <singleLineChart
         :title="title7"
         :subTitle="subTitle7"
-        :data="data1"
-        :lineColorBeg="lineColorBeg7"
-        :lineColorEnd="lineColorEnd7"
+        :type="2"
+        :data1="data4"
+        :data2="data5"
+        :lineColorList="barColorList5"
       ></singleLineChart>
     </div>
 
@@ -102,12 +104,117 @@
         :valueList="valueList10"
       ></radarChart>
     </div>
+
+    <h1
+      @click="
+        isShow = true;
+        position = 'middle';
+      "
+    >
+      middle
+    </h1>
+    <h1
+      @click="
+        type = 1;
+        isShow = true;
+        position = 'left';
+      "
+    >
+      left >
+    </h1>
+    <h1
+      @click="
+        type = 2;
+        isShow = true;
+        position = 'right';
+      "
+    >
+      right
+    </h1>
+    <Dialog :position="position" :isShow="isShow">
+      <div class="slot">
+        <!-- 每日医生活跃 -->
+        <div v-if="type == 1">
+          <div class="block_3 clearfix">
+            <div class="top">
+              <p class="title">每日医生活跃</p>
+              <p class="right">次日预测值<span>2310</span></p>
+            </div>
+            <div class="cell clearfix">
+              <BarChart
+                title="每日医生活跃人数"
+                subTitle="单位：人"
+                :type="1"
+                :data1="data3"
+                :barColorList="barColorList3"
+              ></BarChart>
+            </div>
+            <div class="cell clearfix">
+              <singleLineChart
+                title="每日医生活跃人数增长率"
+                subTitle="单位：%"
+                :data="data2"
+                :lineColorBeg="lineColorBeg6"
+                :lineColorEnd="lineColorEnd6"
+              ></singleLineChart>
+            </div>
+            <div class="cell clearfix">
+              <BarChart
+                title="每日医生活跃占比"
+                subTitle="单位：%"
+                :type="1"
+                :data1="data3"
+                :barColorList="barColorList3"
+              ></BarChart>
+            </div>
+          </div>
+          <div class="block_3 clearfix">
+            <div class="top">
+              <p class="title">每日医生活跃</p>
+              <p class="right">次日预测值<span>2310</span></p>
+            </div>
+            <div class="cell clearfix">
+              <BarChart
+                title="每日医生活跃人数"
+                subTitle="单位：人"
+                :type="1"
+                :data1="data3"
+                :barColorList="barColorList3"
+              ></BarChart>
+            </div>
+            <div class="cell clearfix">
+              <singleLineChart
+                title="每日医生活跃人数增长率"
+                subTitle="单位：%"
+                :data="data2"
+                :lineColorBeg="lineColorBeg6"
+                :lineColorEnd="lineColorEnd6"
+              ></singleLineChart>
+            </div>
+            <div class="cell clearfix">
+              <BarChart
+                title="每日医生活跃占比"
+                subTitle="单位：%"
+                :type="1"
+                :data1="data3"
+                :barColorList="barColorList3"
+              ></BarChart>
+            </div>
+          </div>
+        </div>
+        <div v-if="type == 2">
+          <h1>12111</h1>
+        </div>
+      </div>
+    </Dialog>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
+
+import Dialog from "@/components/Dialog.vue";
 import customizedPieChart from "@/components/customizedPie_chart.vue";
 import BarChart from "@/components/bar_chart.vue";
 import singleLineChart from "@/components/singleLine_chart.vue";
@@ -121,10 +228,14 @@ export default {
     BarChart,
     singleLineChart,
     singlePieChart,
-    radarChart
+    radarChart,
+    Dialog
   },
   data() {
     return {
+      isShow: false,
+      type: 1,
+      position: "middle",
       title1: "转发率发布1",
       data1: [
         { value: 10, name: "内科1" },
@@ -221,6 +332,11 @@ export default {
       ],
       valueList10: [4300, 10000, 28000, 35000, 10000]
     };
+  },
+  methods: {
+    beforeClose() {
+      this.isShow = false;
+    }
   }
 };
 </script>
@@ -233,9 +349,63 @@ export default {
   }
   .box {
     margin: 15px;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:nth-child(2) {
+      height: 800px;
+    }
+  }
+}
+
+.slot {
+  .block_3 {
+    width: 100%;
+    padding-top: 30px;
+    background: #061b4d;
+
+    &:first-child {
+      margin-bottom: 20px;
+    }
+
+    .top {
+      position: relative;
+      margin-bottom: 32px;
+      font-size: 18px;
+      font-family: PingFang-SC-Bold, PingFang-SC;
+      font-weight: bold;
+      color: #fff;
+      line-height: 25px;
+
+      p.title {
+        width: 40%;
+        margin: 0 auto;
+      }
+
+      .right {
+        position: absolute;
+        right: 149px;
+        top: 0;
+
+        span {
+          font-size: 24px;
+          margin-left: 20px;
+        }
+      }
+    }
+
+    .cell {
+      width: 33%;
+      height: 264px;
+      margin-right: 3px;
+      float: left;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
 </style>

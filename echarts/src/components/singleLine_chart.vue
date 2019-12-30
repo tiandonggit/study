@@ -21,38 +21,57 @@ export default {
       default: "", // 自定义副标题 默认为空 不显示
       type: String
     },
-    lineColorBeg: {
-      default: "", // 折线起始颜色
-      type: String
+    type: {
+      default: 1,
+      type: Number
     },
-    lineColorEnd: {
-      default: "", // 折线尾部颜色
-      type: String
+    legendType: {
+      default: 1, // 图例类型  1竖排   2横排
+      type: Number
     },
-    data: {
+    lineColorList: {
+      default: ["", "", "", ""], // 柱子颜色数组 参数：（1）、1柱上；（2）、1柱下；（3）、2柱上；（4）、2柱下
+      type: Array
+    },
+    data1: {
       // 数据
       default: function() {
-        return [];
+        return {};
       }, //一级分类
-      type: Array
+      type: Object
+    },
+    data2: {
+      // 数据
+      default: function() {
+        return {};
+      }, //一级分类
+      type: Object
     }
   },
   data() {
     return {
-      value1: 70,
       chart: null,
       barAxisColor: "#3e8ea9",
       dataX: [],
-      dataY: []
+      dataY1: [],
+      dataY2: [],
+      legendData: []
     };
   },
   mounted() {
     this.$nextTick(() => {
-      this.drow();
-      this.data.forEach((v, e) => {
-        this.dataX.push(v.name);
-        this.dataY.push(v.value);
+      this.legendData.push(this.data1.name);
+      this.data1.value.forEach((v1, e1) => {
+        this.dataX.push(v1.name);
+        this.dataY1.push(v1.value);
       });
+      if (this.data2.name) {
+        this.legendData.push(this.data2.name);
+        this.data2.value.forEach((v1, e1) => {
+          this.dataY2.push(v1.value);
+        });
+      }
+      this.drow();
     });
   },
   methods: {
@@ -75,26 +94,81 @@ export default {
       window.addEventListener("resize", this.handleResizeEvent);
     },
     generatorChartOption() {
+      let series = [
+        {
+          data: this.dataY1,
+          name: this.legendData[0],
+          type: "line",
+          smooth: true,
+          itemStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: this.lineColorList[0] },
+                { offset: 1, color: this.lineColorList[1] }
+              ])
+            },
+            emphasis: {}
+          }
+        }
+      ];
+      if (this.type === 2) {
+        series.push({
+          data: this.dataY2,
+          name: this.legendData[1],
+          type: "line",
+          smooth: true,
+          itemStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                { offset: 0, color: this.lineColorList[2] },
+                { offset: 1, color: this.lineColorList[3] }
+              ])
+            },
+            emphasis: {}
+          }
+        });
+      }
+      // 图例配置
+      let legend =
+        this.type === 1 // 单柱不显示图例
+          ? {
+              show: false
+            }
+          : {
+              show: true,
+              data: this.legendData,
+              right: "26px",
+              align: "left",
+              y: "20%",
+              itemWidth: 14,
+              orient: this.legendType === 1 ? "vertical" : "horizontal",
+              align: "left",
+              icon: "circle",
+              textStyle: {
+                color: "#fff"
+              }
+            };
       let option = {
         title: [
           {
             // 标题配置
             text: this.title,
             x: "center",
-            y: "0%",
+            y: "8%",
             textStyle: {
               color: "#fff"
             }
           },
           {
             subtext: this.subTitle,
-            x: "left",
-            y: "3%",
+            left: "5px",
+            y: "16%",
             subtextStyle: {
               color: this.barAxisColor
             }
           }
         ],
+        legend: legend,
         tooltip: {
           trigger: "axis",
           axisPointer: {
@@ -105,6 +179,7 @@ export default {
         grid: {
           left: "3%",
           right: "4%",
+          top: "32%",
           bottom: "3%",
           containLabel: true
         },
@@ -140,22 +215,7 @@ export default {
             }
           }
         ],
-        series: [
-          {
-            data: this.dataY,
-            type: "line",
-            smooth: true,
-            itemStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-                  { offset: 0, color: this.lineColorBeg },
-                  { offset: 1, color: this.lineColorEnd }
-                ])
-              },
-              emphasis: {}
-            }
-          }
-        ]
+        series: series
       };
       return option;
     },
@@ -176,14 +236,14 @@ export default {
 
 <style scoped lang="less">
 .singleLine_chart {
-  // width: 100%;
+  width: 100%;
   height: 100%;
-  background-color: #001831;
+  background-color: #061b4d;
 
   div {
-    height: 250px;
-    width: 400px;
-    margin: 15px;
+    height: 100%;
+    width: 100%;
+    // margin: 15px;
   }
 }
 </style>

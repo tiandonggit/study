@@ -111,43 +111,90 @@ export default {
       window.addEventListener("resize", this.handleResizeEvent);
     },
     generatorChartOption() {
-      let right = "4%"; // 图形在画布右侧偏移量（默认）
+      let right = "4%",
+        top = "32%",
+        bottom = "3%",
+        subtextY = "16%"; // 图形在画布右侧偏移量（默认）
+      if (this.type === 2) {
+        right = "15%";
+        top = "38%";
+        subtextY = "23%";
+
+        right = this.legendType === 2 ? "8%" : right;
+        right = this.legendType === 3 ? "4%" : right;
+        top = this.legendType === 3 ? "28%" : top;
+        subtextY = this.legendType === 3 ? "12%" : subtextY;
+        bottom = this.legendType === 3 ? "15%" : bottom;
+      }
       this.type === 3 && (right = "30%"); // 叠状右侧偏移配置
+      subtextY = this.legendType === 5 ? "5%" : subtextY;
 
       // 图例配置
-      let legend =
-        this.type === 1 // 单柱不显示图例
-          ? {
-              show: false
+      let legend;
+      if (this.type === 1) {
+        // 单柱不显示图例
+        if (this.legendType !== 5) {
+          legend = {
+            show: false
+          };
+        } else {
+          legend = {
+            data: this.legendData,
+            right: "26px",
+            align: "left",
+            y: "17%",
+            itemGap: 15,
+            itemWidth: 14,
+            orient: "vertical",
+            textStyle: {
+              color: "#fff"
             }
-          : this.type === 2 // 双柱图例显示右上
-          ? {
-              data: this.legendData,
-              x: "right",
-              y: "20",
-              itemWidth: 14,
-              orient: this.legendType === 1 ? "vertical" : "horizontal",
-              align: "left",
-              textStyle: {
-                color: "#fff"
-              }
+          };
+        }
+      } else if (this.type === 2) {
+        // 双柱图例显示右上
+        legend = {
+          data: this.legendData,
+          right: "26px",
+          align: "left",
+          y: "20%",
+          itemGap: 15,
+          itemWidth: 14,
+          orient: this.legendType === 1 ? "vertical" : "horizontal",
+          align: "left",
+          textStyle: {
+            color: "#fff"
+          }
+        };
+        this.legendType === 3 &&
+          (legend = {
+            data: this.legendData,
+            bottom: 10,
+            itemGap: 15,
+            itemWidth: 14,
+            orient: this.legendType === 1 ? "vertical" : "horizontal",
+            align: "left",
+            textStyle: {
+              color: "#fff"
             }
-          : {
-              // 叠柱图例显示右下
-              data: this.legendData,
-              right: 20,
-              bottom: 30,
-              itemGap: 30,
-              icon: "circle",
-              itemWidth: 14,
-              itemHeight: 14,
-              orient: "vertical",
-              align: "left",
-              textStyle: {
-                color: "#fff",
-                
-              }
-            };
+          });
+      } else {
+        legend = {
+          // 叠柱图例显示右下
+          data: this.legendData,
+          right: 20,
+          bottom: 30,
+          itemGap: 30,
+          icon: "circle",
+          itemWidth: 14,
+          itemHeight: 14,
+          orient: "vertical",
+          align: "left",
+          textStyle: {
+            color: "#fff"
+          }
+        };
+      }
       // 数据配置 —— 默认单柱
       let series = [
         {
@@ -213,15 +260,15 @@ export default {
             // 标题配置
             text: this.title,
             x: "center",
-            y: "0%",
+            y: "5%",
             textStyle: {
               color: "#fff"
             }
           },
           {
             subtext: this.subTitle,
-            x: "left",
-            y: "5%",
+            left: "10px",
+            y: subtextY,
             subtextStyle: {
               color: this.barAxisColor
             }
@@ -236,10 +283,10 @@ export default {
           }
         },
         grid: {
-          left: "3%",
+          left: "4%",
           right: right,
-          bottom: "3%",
-          // top: "25%",
+          top: top,
+          bottom: bottom,
           containLabel: true
         },
         xAxis: [
@@ -295,14 +342,15 @@ export default {
 
 <style scoped lang="less">
 .bar_chart {
+  width: 100%;
   height: 100%;
-  background-color: #001831;
+  background-color: #061b4d;
   float: left;
 
   div {
-    height: 250px;
-    width: 400px;
-    margin: 15px;
+    height: 100%;
+    width: 100%;
+    // margin: 15px;
   }
 }
 </style>

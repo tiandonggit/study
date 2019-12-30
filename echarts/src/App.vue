@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
+      <router-link to="/index">index</router-link> |
       <router-link to="/bar_charts">bar_charts</router-link> |
       <router-link to="/mapChart">mapChart</router-link>
     </div>
@@ -23,11 +24,25 @@ body, html {
   height: 100%;
 }
 
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
 .clearfix::after {
   content: "";
   height: 0;
   display: block;
   clear: both;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 #nav {

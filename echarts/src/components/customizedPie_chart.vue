@@ -31,7 +31,7 @@ export default {
     return {
       dataNameList: [], // 底部名称数组
       chart: null,
-      topChartPositionY: "25%"
+      topChartPositionY: "27%"
     };
   },
   mounted() {
@@ -76,20 +76,26 @@ export default {
             // 标题配置
             text: this.title,
             x: "center",
-            y: "0%",
+            y: "2%",
             textStyle: {
-              color: "#fff"
+              color: "#fff",
             }
           },
           {
             subtext: "阅读数分布 ",
             x: "center",
-            y: "3%"
+            y: "7%",
+            subtextStyle: {
+              color: "#fff",
+            }
           },
           {
             subtext: "转发率分布",
             x: "center",
-            y: "45%"
+            y: "44%",
+            subtextStyle: {
+              color: "#fff",
+            }
           }
         ],
         tooltip: {
@@ -100,7 +106,7 @@ export default {
         legend: {
           // 底部名称配置
           x: "center",
-          y: "bottom",
+          top: "630px",
           data: this.dataNameList,
           textStyle: {
             color: "#fff"
@@ -124,8 +130,8 @@ export default {
               "#ffec00",
               "#144AFF"
             ],
-            radius: [20, 110],
-            center: ["50%", "70%"],
+            radius: [32, 110],
+            center: ["50%", "66%"],
             roseType: "radius",
             label: {
               normal: {
@@ -151,7 +157,7 @@ export default {
           {
             name: "",
             type: "pie",
-            radius: ["40%", "55%"],
+            radius: [68, 88],
             center: ["50%", this.topChartPositionY],
             itemStyle: {
               normal: {
@@ -177,7 +183,7 @@ export default {
           {
             name: "",
             type: "pie",
-            radius: ["0", " 30%"],
+            radius: [0, 55],
             center: ["50%", this.topChartPositionY],
             itemStyle: {
               normal: {
@@ -220,13 +226,14 @@ export default {
 
 <style scoped lang="less">
 .customizedPie_chart {
-  background-color: #001831;
+  width: 100%;
+  height: 100%;
+  background-color: #061B4D;
   float: left;
 
   div {
-    height: 750px;
-    width: 400px;
-    margin: 15px;
+    height: 100%;
+    width: 100%;
   }
 }
 </style>
