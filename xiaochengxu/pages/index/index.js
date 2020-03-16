@@ -1,6 +1,8 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
+
+import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 
 Page({
   data: {
@@ -13,6 +15,14 @@ Page({
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
+    })
+  },
+  test: function() {
+    Toast('111');
+  },
+  about: function() {
+    wx.navigateTo({
+      url: '../about/about',
     })
   },
   onLoad: function () {

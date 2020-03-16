@@ -1,0 +1,9 @@
+<!--logs.wxml-->
+<view class="container">
+  <block class="about" wx:for="{{aboutList}}" wx:for-item="about" wx:key="index">
+    <text>{{about.index}} - {{about.name}} - {{index}}</text>
+  </block>
+  <block wx:for="{{aboutList}}" wx:for-item="about">
+    <text>{{about.name}}</text>
+  </block>
+</view>
