@@ -7,14 +7,16 @@
     <div class="input-box">
       <textarea
         v-model.trim="text"
-        v-hotkey="{
-          enter: send
-        }"
+        v-hotkey="keymap"
         cols="30"
         rows="10"
       ></textarea>
     </div>
-    <button @click.stop="send()">发送</button>
+    <select v-model="select" @change="change" name="" id="">
+      <option value="1">enter 发送</option>
+      <option value="2">shift+enter 发送</option>
+    </select>
+    <button @click.stop="send($event)">发送</button>
   </div>
 </template>
 
@@ -28,10 +30,18 @@ export default {
   data() {
     return {
       text: "",
-      list: []
+      list: [],
+      select: "1",
+      keymap: {'enter': this.send},
+      file: ''
     };
   },
   methods: {
+    change(){
+      // console.log("select:", this.select)
+      this.select == 1 && (this.keymap = {'enter': this.send})
+      this.select == 2 && (this.keymap = {'shift+enter': this.send})
+    },
     send(e) {
       e.preventDefault();
       if (!this.text) return;
