@@ -33,6 +33,12 @@ const routes = [
     name: "mapChart",
     component: () =>
       import(/* webpackChunkName: "mapChart" */ "../views/mapChart.vue")
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: () =>
+      import(/* webpackChunkName: "test" */ "../views/test.vue")
   }
 ];
 

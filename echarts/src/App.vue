@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/index">index</router-link> |
       <router-link to="/bar_charts">bar_charts</router-link> |
-      <router-link to="/mapChart">mapChart</router-link>
+      <router-link to="/mapChart">mapChart</router-link> |
+      <router-link to="/test">test</router-link>
     </div>
     <router-view/>
   </div>
