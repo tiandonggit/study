@@ -1,15 +1,27 @@
 <!--logs.wxml-->
 <view class="container">
-  <block class="about" wx:for="{{aboutList}}" wx:for-item="about" wx:key="index">
-    <text>{{index}} - {{about.name}}</text>
-  </block>
-  <view class="btn">
-    <van-button bindtap="click" type="primary">默认按钮</van-button>
+  <!-- 列表 循环 -->
+  <view class="list-block">
+    <block wx:for="{{aboutList}}" wx:for-item="about" wx:key="index">
+      <text>{{index}} - {{about.name}}</text>
+    </block>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+  <!-- 点击事件 -->
   <view class="btn">
+    <van-button bindtap="click">{{motto}}</van-button>
+  </view>
+  <!-- 调用公共方法 -->
+  <view class="btn2">
     <van-button bindtap="getTime">getTime</van-button>
   </view>
+  <!-- 变量 -->
+  <view class="usermotto">
+    <text class="user-motto">{{time}}</text>
+  </view>
+  <!-- 组件、变量、事件、传参 -->
+  <view class="comp-block">
+    <copm-list list="{{aboutList}}" bind:select="select"></copm-list>
+  </view>
+  <!-- toast -->
+  <van-toast id="van-toast" />
 </view>

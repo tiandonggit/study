@@ -1,0 +1,11 @@
+/* components/list/list.wxss */
+
+.item view {
+  width: 100%;
+  text-align: center;
+  line-height: 70rpx;
+}
+
+.item view:nth-child(odd) {
+  background: #f2f2f2;
+}

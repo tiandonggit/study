@@ -10,7 +10,7 @@ a {
   clear: both;
 }
 
-.btn button {
-  background-color: #0069ff;
+.btn2 button {
+  background-color: #70a8f5;
   color: #fff;
 }
