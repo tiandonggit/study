@@ -6,7 +6,6 @@ import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -15,14 +14,6 @@ Page({
   bindViewTap: function() {
     wx.navigateTo({
       url: '../logs/logs'
-    })
-  },
-  test: function() {
-    Toast('111');
-  },
-  about: function() {
-    wx.navigateTo({
-      url: '../about/about',
     })
   },
   onLoad: function () {

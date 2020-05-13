@@ -1,9 +1,15 @@
 <!--logs.wxml-->
 <view class="container">
   <block class="about" wx:for="{{aboutList}}" wx:for-item="about" wx:key="index">
-    <text>{{about.index}} - {{about.name}} - {{index}}</text>
+    <text>{{index}} - {{about.name}}</text>
   </block>
-  <block wx:for="{{aboutList}}" wx:for-item="about">
-    <text>{{about.name}}</text>
-  </block>
+  <view class="btn">
+    <van-button bindtap="click" type="primary">默认按钮</van-button>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+  <view class="btn">
+    <van-button bindtap="getTime">getTime</van-button>
+  </view>
 </view>

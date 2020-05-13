@@ -1,0 +1,16 @@
+/* 公共wxss */
+
+a {
+  text-decoration: none;
+}
+
+.clearfix::after, .clearfix::before {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+.btn button {
+  background-color: #0069ff;
+  color: #fff;
+}

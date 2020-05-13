@@ -7,14 +7,8 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="btn">
-    <van-button bindtap="test" type="default">默认按钮</van-button>
-  </view>
-  <view class="btn">
-    <van-button bindtap="about">about</van-button>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="welcome">
+    欢迎来到我的小程序
   </view>
   <van-toast id="van-toast" />
 </view>

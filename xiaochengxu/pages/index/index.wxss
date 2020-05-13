@@ -16,10 +16,6 @@
   color: #aaa;
 }
 
-.usermotto {
-  margin-top: 100rpx;
-}
-
-.btn {
-  margin-top: 100rpx;
+.welcome {
+  margin-top: 400rpx;
 }

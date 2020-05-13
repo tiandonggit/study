@@ -1,8 +1,19 @@
+@import "../../assets/common.wxss";
+
 .log-list {
   display: flex;
   flex-direction: column;
   padding: 40rpx;
 }
+
 .log-item {
   margin: 10rpx;
+}
+
+.usermotto {
+  margin-top: 100rpx;
+}
+
+.btn {
+  margin-top: 100rpx;
 }
