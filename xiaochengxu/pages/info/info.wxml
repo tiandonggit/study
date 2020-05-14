@@ -1,0 +1,8 @@
+<!--pages/info/info.wxml-->
+<view class="info-page">
+  <block wx:for="{{infoList}}" wx:for-item="info" wx:key="index">
+    <view class="item">{{info.name}} :
+      <text> {{info.value}}</text>
+    </view>
+  </block>
+</view>

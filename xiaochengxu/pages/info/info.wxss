@@ -1,0 +1,16 @@
+/* pages/info/info.wxss */
+.item {
+  width: 100%;
+  line-height: 70rpx;
+  text-align: left;
+  padding-left: 35px;
+  color: #666
+}
+
+.item:nth-child(odd) {
+  background: #f2f2f2;
+}
+
+.item text {
+  color: #333;
+}
